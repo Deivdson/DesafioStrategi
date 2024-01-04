@@ -10,7 +10,8 @@ class Hero(db.Model):
     description = db.Column(db.String, nullable=False)
     thumbnail = db.Column(db.String, nullable=True)    
 
-    def __init__(self, name, description, thumbnail ):        
+    def __init__(self, id, name, description, thumbnail ):        
+        self.id = id
         self.name = name
         self.description = description
         self.thumbnail = thumbnail

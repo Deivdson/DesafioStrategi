@@ -17,4 +17,4 @@ COPY . .
 COPY .env .env
 
 
-CMD python main.py
+CMD python -m pytest; python main.py

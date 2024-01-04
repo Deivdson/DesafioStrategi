@@ -73,7 +73,7 @@ export default function Home() {
             heros: targetKeys
         }
         const resp = await api.put_grupo(data, currentGroup)
-        if (resp){
+        if (resp.status==200){
             alert("Grupo Atualizado!")
         }
     }
@@ -97,7 +97,7 @@ export default function Home() {
         
         <h1>Gestão de Grupos de Heróis</h1>
 
-        <Row>            
+        <Row style={{alignItems:'end'}}>            
             <Col offset={15} span={3}>
                 <Button type='link' className={styles.addButton} onClick={showDrawGroup}>
                     + Adicionar grupo
@@ -121,7 +121,8 @@ export default function Home() {
                 selectedKeys={selectedKeys}
                 onChange={onChange}
                 onSelectChange={onSelectChange}   
-                pagination={true}                
+                pagination={true}        
+                style={styles.transfer}        
                 listStyle={{color:'white'}}  
                 render={(item) => 
                     <List.Item>

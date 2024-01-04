@@ -9,6 +9,7 @@ from api.utils.service import fetch_api as fetch_api
 from api.utils.load_heros import load_heros
 from api.utils.execute import heros as heros_execute
 from api.utils.paginations import funcs
+import asyncio
 
 app = Blueprint("heros", __name__)
 
@@ -22,6 +23,7 @@ def get_heros(current_user):
         print('len heros',len(heros))
         if not heros or 'reload' in args:
             load_heros()
+            # asyncio.run(calling_function())
             heros = Hero.query.all()
             print(len(heros))
 

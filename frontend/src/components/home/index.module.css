@@ -3,7 +3,9 @@
     margin: 10% 30%;
     text-align: center;
     background-color: #102732; 
-    padding: 1rem;    
+    padding: 1rem;
+    min-width: 15rem;
+    position: relative;
 }
 
 .container h1{
@@ -25,4 +27,8 @@
 
 .addButton{
     background-color: #102732;
+}
+
+.tranfer-li{
+    background-color: rgb(255, 255, 255);
 }
