@@ -13,7 +13,7 @@ app = Blueprint("groups", __name__)
 @app.route('/', methods=['GET', 'POST'])
 @jwt_required
 def get_groups(current_user):
-    """Rotas de GET e POST """
+
     if request.method == "GET":
         groups = Group.query.all()
         return Response(response=groups_schema.dumps(groups), status=200, content_type="application/json")
@@ -23,9 +23,7 @@ def get_groups(current_user):
         heros = data.get('heros')
         name = data.get('name')
         description = data.get('description') or None
-        
-        print("On POST")
-
+                
         if Group.query.filter_by(name=name).first():
             return Response(response=json.dumps({'errors':{"erro":"O nome já existe"}}), status=400, content_type="application/json")
         

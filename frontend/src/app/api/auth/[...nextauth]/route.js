@@ -33,7 +33,7 @@ const nextAuthOptions = {
         })
     ],
     pages: {
-        signIn: '/components/login'
+        signIn: '/components/page/login'
     }
 }
 
