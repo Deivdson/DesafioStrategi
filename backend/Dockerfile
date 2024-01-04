@@ -14,6 +14,7 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+COPY .env .env
 
 
 CMD python main.py

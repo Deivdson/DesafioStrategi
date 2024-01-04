@@ -1,0 +1,26 @@
+version: '1'
+services:
+  backend:
+    container_name: heros_backend
+    environment:
+      - PUBLIC_KEY=d136c1f17c2413bdeab56c2e6c302c59
+      - PRIVATE_KEY=74b2c5fae54f40ce38f391d275b8e3861acf1b1c
+      - SECRET_KEY=secretkey
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "5000:5000"
+    restart: always
+  frontend:
+    container_name: heros_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
