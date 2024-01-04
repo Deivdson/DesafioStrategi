@@ -200,6 +200,12 @@
     );
     z-index: 1;
   }
+  .space-align-block{
+    flex: none;
+    margin: 8px 4px;
+    padding: 4px;
+    border: 1px solid #40a9ff;
+  }
 }
 
 /* Tablet and Smaller Desktop */

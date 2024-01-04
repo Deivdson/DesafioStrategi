@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { usePathname, useRouter } from 'next/navigation';
+import { Space, Button } from 'antd';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import nookies from "nookies";
@@ -20,13 +21,19 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
+     
+
+        <div className="space-align-block">
+          <Space align="start">          
+            <Button type="dashed" style={{backgroundColor:'chocolate', color:'white', fontFamily:'fantasy'}}>
+              <Link href={'/home'}>
+                Gerenciar Grupos
+              </Link>
+            </Button>          
+          </Space>
+        </div>        
       
-       <Link href={'/'}>
-          Acessar Groups
-       </Link>
       
-      </div>
     </main>
   )
 }
