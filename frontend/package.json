@@ -1,0 +1,24 @@
+{
+  "name": "heros_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "antd": "^5.12.6",
+    "axios": "^1.6.3",
+    "next": "14.0.4",
+    "nookies": "^2.5.2",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "npm": "^10.2.5"
+  }
+}

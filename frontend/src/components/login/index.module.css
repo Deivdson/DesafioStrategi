@@ -1,0 +1,24 @@
+
+.container{
+    margin: 20% 40%;
+    text-align: center;
+    background-color: #102732;
+    padding: 2rem;
+    min-width: 10rem;
+}
+
+.container h1{
+    padding-bottom: 2rem;
+}
+
+.container Input Button{
+    max-width: 14rem;
+    margin: 5rem 1rem;
+}
+
+.container Button{
+    width: 100%;
+    font-weight: 1rem;
+    color: white;
+    background-color: chocolate;
+}

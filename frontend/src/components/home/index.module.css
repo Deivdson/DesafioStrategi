@@ -1,0 +1,28 @@
+
+.container{
+    margin: 10% 30%;
+    text-align: center;
+    background-color: #102732; 
+    padding: 1rem;    
+}
+
+.container h1{
+    padding-bottom: 2rem;
+}
+
+.container Transfer Button{
+    max-width: 193rem;
+    margin: 5rem 1rem;
+}
+
+.submitButton{
+    width: 100%;
+    font-weight: 1rem;
+    margin-top: 2rem;
+    color: white;
+    background-color: chocolate;
+}
+
+.addButton{
+    background-color: #102732;
+}
