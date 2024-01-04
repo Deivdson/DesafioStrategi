@@ -13,7 +13,7 @@ app = Blueprint("groups", __name__)
 @app.route('/', methods=['GET', 'POST'])
 @jwt_required
 def get_groups(current_user):
-    """Rotas de GET e POST """
+
     if request.method == "GET":
         groups = Group.query.all()
         return Response(response=groups_schema.dumps(groups), status=200, content_type="application/json")
@@ -23,13 +23,11 @@ def get_groups(current_user):
         heros = data.get('heros')
         name = data.get('name')
         description = data.get('description') or None
-        
-        print("On POST")
-
+                
         if Group.query.filter_by(name=name).first():
             return Response(response=json.dumps({'errors':{"erro":"O nome já existe"}}), status=400, content_type="application/json")
         
-        if validate_heros(heros, current_user.id):            
+        if validate_heros(heros_list=heros, user_id=current_user.id):            
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
         
         group:Group = Group(
@@ -64,8 +62,10 @@ def get_group(current_user, id):
     elif request.method == "PUT":
         data = request.get_json()
         group:Group = Group.query.get(id)
-
-        if validate_heros(data['heros'], current_user.id):
+            
+        group_heros = [gh.id for gh in group.integrantes]
+        
+        if validate_heros(data['heros'], group_heros, current_user.id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
 
         try:
@@ -86,7 +86,9 @@ def get_group(current_user, id):
         data = request.get_json()
         group:Group = Group.query.get(id)
 
-        if validate_heros(data['heros'], current_user.id):
+        group_heros = [gh.id for gh in group.integrantes]
+
+        if validate_heros(data['heros'], group_heros, current_user.id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
 
         try:

@@ -5,7 +5,7 @@ import formData from '@/forms/utils';
 import styles from './index.module.css'
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
-import { setCookie } from "nookies";
+import { signIn } from "next-auth/react";
 
 export default function Login(){
     const router = useRouter();    
@@ -13,13 +13,25 @@ export default function Login(){
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false)
 
-    const onFinish = (data) => {
+    const onFinish = async(data) => {
         setLoading(true) 
-        const resp = api.login(data)
-        if (resp){      
-            setLoading(false)      
-            router.push('/home')     
-            form.resetFields();
+        // const resp = api.login(data)
+        console.log(data)
+        let email = data.email
+        let password = data.password
+        const resp = await signIn('credentials',{
+            email,
+            password,
+            redirect:false
+        })
+
+        console.log("RESULTADO: ", resp)
+        if (resp?.status != 200){
+            console.log("RESULTADO: error", resp)
+            return
+        }
+        if (resp?.status == 200){
+            router.replace('/home')    
         }
     }
 

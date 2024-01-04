@@ -31,9 +31,7 @@ def fetch_api(url):
     s = requests.session()
     s.mount(url, SslOldHttpAdapter())
     
-    response = s.get(url)
-    # print(response.json()['data']['results'])
+    response = s.get(url)    
 
     caracters = response.json()['data']['results']
-    return caracters
-    # endpoint = "https://gateway.marvel.com:443/v1/public/caracters"
+    return caracters    

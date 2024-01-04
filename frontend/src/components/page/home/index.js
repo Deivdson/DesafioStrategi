@@ -2,9 +2,10 @@
 import { Transfer, Row, Col, Button, Select, Tooltip, List, Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import { herosToData, groupsToData } from '@/forms/utils';
-import ModalGroup from '../modals/group';
+import ModalGroup from '../../modals/group';
 import { api } from '@/api';
 import styles from './index.module.css'
+
 
 export default function Home() {
     const [dataHeros, setDataHeros] = useState(null)
@@ -18,6 +19,7 @@ export default function Home() {
     const [selectedKeys, setSelectedKeys] = useState([]);
     
     const [openModalGroup, setOpenModalGroup] = useState(false);
+    
 
     const loadHeros = async () =>{
         const dataGroup = await api.grupos();
@@ -63,7 +65,7 @@ export default function Home() {
         setDataSource([...dataHeros, ...gheros])
     }    
 
-    const finish = async () => {
+    const finish = async () => {    
 
         let group = dataGroups.filter((e) => e.value==currentGroup)
 
@@ -73,7 +75,8 @@ export default function Home() {
             heros: targetKeys
         }
         const resp = await api.put_grupo(data, currentGroup)
-        if (resp){
+        console.log("Resp em",resp)
+        if (resp.status==200){
             alert("Grupo Atualizado!")
         }
     }
@@ -97,7 +100,7 @@ export default function Home() {
         
         <h1>Gestão de Grupos de Heróis</h1>
 
-        <Row>            
+        <Row style={{alignItems:'end'}}>            
             <Col offset={15} span={3}>
                 <Button type='link' className={styles.addButton} onClick={showDrawGroup}>
                     + Adicionar grupo
@@ -121,12 +124,13 @@ export default function Home() {
                 selectedKeys={selectedKeys}
                 onChange={onChange}
                 onSelectChange={onSelectChange}   
-                pagination={true}                
+                pagination={true}        
+                style={styles.transfer}        
                 listStyle={{color:'white'}}  
                 render={(item) => 
-                    <List.Item>
-                        <Tooltip title={item.description}>{item.title}</Tooltip>
-                    </List.Item>
+                    
+                    <Tooltip title={item.description}>{item.title}</Tooltip>
+                    
                 }
             />
                 <Button className={styles.submitButton} onClick={finish}>

@@ -152,7 +152,7 @@ export const put_grupo = async (data, group_id) => {
     try{
         if(group_id){
             const resp = await api.put(`/group/${group_id}`, data)
-            return resp.data
+            return resp
         }
         
     } catch (error){
