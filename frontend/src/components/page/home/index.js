@@ -102,7 +102,7 @@ export default function Home() {
 
         <Row style={{alignItems:'end'}}>            
             <Col offset={15} span={3}>
-                <Button type='link' className={styles.addButton} onClick={showDrawGroup}>
+                <Button type='link' onClick={showDrawGroup}>
                     + Adicionar grupo
                 </Button>                
             </Col>
@@ -113,7 +113,7 @@ export default function Home() {
                 titles={
                     ['Heros',
                     <Select 
-                        style={{width:"100%"}} 
+                        style={{width:"100%", color:'white'}} 
                         value={currentGroup}                        
                         options={dataGroups} 
                         onChange={changeGroup} 
@@ -123,14 +123,12 @@ export default function Home() {
                 targetKeys={targetKeys}
                 selectedKeys={selectedKeys}
                 onChange={onChange}
-                onSelectChange={onSelectChange}   
-                pagination={true}        
-                style={styles.transfer}        
-                listStyle={{color:'white'}}  
+                onSelectChange={onSelectChange}
+                pagination={true}                             
+                listStyle={{color:'white', backgroundColor:'white'}}
+                style={{color:'white'}}
                 render={(item) => 
-                    
                     <Tooltip title={item.description}>{item.title}</Tooltip>
-                    
                 }
             />
                 <Button className={styles.submitButton} onClick={finish}>
