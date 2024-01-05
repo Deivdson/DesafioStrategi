@@ -64,6 +64,8 @@ def get_group(current_user, id):
         group:Group = Group.query.get(id)
             
         group_heros = [gh.id for gh in group.integrantes]
+
+        print(group_heros)
         
         if validate_heros(data['heros'], group_heros, current_user.id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")

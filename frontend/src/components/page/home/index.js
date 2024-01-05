@@ -79,6 +79,7 @@ export default function Home() {
         if (resp.status==200){
             alert("Grupo Atualizado!")
         }
+        loadHeros();
     }
 
     const showDrawGroup = () => {
@@ -89,7 +90,7 @@ export default function Home() {
     }
 
     useEffect(() => {  
-        loadHeros()         
+        loadHeros()     
     }, [])
 
 
@@ -113,8 +114,8 @@ export default function Home() {
                 titles={
                     ['Heros',
                     <Select 
-                        style={{width:"100%", color:'white'}} 
-                        value={currentGroup}                        
+                        style={{width:"100%"}} 
+                        value={currentGroup}                  
                         options={dataGroups} 
                         onChange={changeGroup} 
                     />]}
@@ -125,7 +126,7 @@ export default function Home() {
                 onChange={onChange}
                 onSelectChange={onSelectChange}
                 pagination={true}                             
-                listStyle={{color:'white', backgroundColor:'white'}}
+                listStyle={{color:'white',}}
                 style={{color:'white'}}
                 render={(item) => 
                     <Tooltip title={item.description}>{item.title}</Tooltip>
