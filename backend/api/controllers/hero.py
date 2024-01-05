@@ -1,7 +1,7 @@
 import json
 from flask import Blueprint, request, Response
 from api.models.hero import Hero
-from api.serializers.hero_serializer import hero_schema, heros_schema
+from api.serializers.hero_serializer import hero_schema, heros_schema, HeroSchema
 from api import db
 
 from api.utils.authenticate import jwt_required
@@ -17,13 +17,12 @@ app = Blueprint("heros", __name__)
 @jwt_required
 def get_heros(current_user):
     if request.method == "GET":
-        args = request.args
+        args = request.args                
 
         heros = Hero.query.all()
-        print('len heros',len(heros))
+
         if not heros or 'reload' in args:
-            load_heros()
-            # asyncio.run(calling_function())
+            load_heros()            
             heros = Hero.query.all()
             print(len(heros))
 
@@ -38,17 +37,16 @@ def get_heros(current_user):
             heros = funcs.get_OL(heros, int(offset) if offset else None, int(limit) if limit else None)        
 
         return Response(response=heros_schema.dumps(heros), status=200, content_type="application/json")
-    
-    elif request.method == "POST":
-        data = request.get_json()
 
-        hero = Hero(
-            data.get('id'),
-            data.get('name'),
-            data.get('description'),
-            data.get('thumbnail')
-            )
-        print(data)
+    elif request.method == "POST":
+
+        validated_data = hero_schema.load(request.get_json())
+        h = Hero.query.get(validated_data.get('id'))
+        if h:
+            return Response(response={'erros':{'erro': "Herói já cadastrado!"}}, status=400, content_type="application/json")
+        
+        hero = Hero(**validated_data)
+    
         db.session.add(hero)
         db.session.commit()
         return Response(response=hero_schema.dumps(hero), status=200, content_type="application/json")
@@ -63,7 +61,7 @@ def get_hero(current_user, id):
     
     if request.method == "PATCH":
         data = request.get_json()
-        hero = Hero.query.get(id)        
+        hero = Hero.query.get(id)      
         hero.name = data.get('name')
         hero.description = data.get('description')
         hero.thumbnail = data.get('thumbnail')
@@ -90,28 +88,3 @@ def get_hero(current_user, id):
         db.session.delete(hero)
         db.session.commit()
         return Response(response="OK", status=200)
-
-
-@app.route('/fetch', methods=['GET'])
-def fetch():
-    if request.method == "GET":        
-        limit = 100
-        offset = 0
-        data = fetch_api(f'https://gateway.marvel.com/v1/public/characters?limit={limit}&offset={offset}')
-
-        for i in range(9):
-            print(i)
-            list_heros = []
-            for caracter in data:            
-                exist = Hero.query.filter_by(name=caracter['name']).first()
-                if not exist and caracter:
-                    new_hero = {'name':caracter['name'], 'description':caracter['description']}
-                    print('-> ',new_hero,'\n')             
-                    hero = Hero(name=caracter['name'], description=caracter['description'])
-                    
-                    list_heros.append(hero)
-            offset += limit
-                    
-        db.session.add_all(list_heros)
-        db.session.commit()
-        return Response(response=json.dumps(data), status=200)
