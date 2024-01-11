@@ -17,19 +17,19 @@ const nextAuthOptions = {
                     password: credencials?.password
                 }
                 const response = await api.post("/auth/", data);
-                setCookie(null, 'token', response.data.token, {
-                    maxAge: 68400 * 7,
-                    path: '/' 
-                });     
+                   
 
                 const user = await response
                 if (user && response) {
+                    setCookie(null, 'token', response.data.token, {
+                        maxAge: 68400 * 7,
+                        path: '/' 
+                    });  
                     return user
                 }
                 return null
             },
 
-            
         })
     ],
     pages: {
