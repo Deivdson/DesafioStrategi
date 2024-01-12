@@ -15,23 +15,14 @@ export default function Login(){
 
     const onFinish = async(data) => {
         setLoading(true) 
-        // const resp = api.login(data)
-        console.log(data)
-        let email = data.email
-        let password = data.password
-        const resp = await signIn('credentials',{
-            email,
-            password,
-            redirect:false
-        })
-
-        console.log("RESULTADO: ", resp)
+        const resp = await api.login(data)
+             
         if (resp?.status != 200){
             console.log("RESULTADO: error", resp)
             return
         }
         if (resp?.status == 200){
-            router.replace('/home')    
+            router.replace('/home')             
         }
     }
 

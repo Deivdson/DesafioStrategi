@@ -1,6 +1,6 @@
 import axios from "axios";
 import nookies from "nookies";
-import { setCookie } from "nookies";
+import { setCookie, parseCookies } from "nookies";
 
 const api = axios.create({
     baseURL: 'http://localhost:5000',
@@ -11,21 +11,53 @@ api.defaults.headers["Access-Control-Allow-Origin"] = "*, localhost:3000";
 api.defaults.headers["Access-Control-Allow-Credentials"] = true;
 
 api.interceptors.request.use((config) => {
-    const token = nookies.get().token;
+    // const token = nookies.get().token;
+    const {'nextauth.token': token} = parseCookies()
+    
+    console.log("TOKEN API ", token)
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
 });
 
+export function defineAxiosHeaderWithToken(token) {
+    const {'nextauth.token': tokens} = parseCookies()
+    console.log(`Bearer ${token}`, tokens)
+
+    if(token) {
+        api.defaults.headers['Authorization'] = `Bearer ${tokens}`;
+    }
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    console.log("Headers: ", api.defaults.headers)
+    
+}
+
+export async function logout(redirect = true) {
+    await delete api.defaults.headers.common.Authorization;
+
+    destroyCookie(null, 'login_attempt', {
+        path: '/'
+    });
+
+    await signOut({
+        redirect: redirect,
+        callbackUrl: '/login?logout=true'
+    });
+}
+
 export const login = async (data) => {     
     try{
         const resp = await api.post("/auth/", data);
+        defineAxiosHeaderWithToken(resp.data.token)
         setCookie(null, 'token', resp.data.token, {
             maxAge: 68400 * 7,
             path: '/' 
         });     
-        return {...resp.data}
+        return resp
 
     } catch (error) {
         if (error.response?.status == 400) {

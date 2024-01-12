@@ -22,6 +22,8 @@ export default function Home() {
     
 
     const loadHeros = async () =>{
+        // const token = localStorage.getItem('token')
+        console.log("Headers load heros: ", api.defaults.headers.Authorization)
         const dataGroup = await api.grupos();
         const data = await api.heros();
 
@@ -90,6 +92,10 @@ export default function Home() {
     }
 
     useEffect(() => {  
+        // const token = localStorage.getItem('token')
+
+        // console.log("TOKENS: ", token)
+        
         loadHeros()     
     }, [])
 
