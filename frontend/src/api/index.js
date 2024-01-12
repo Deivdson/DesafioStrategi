@@ -22,7 +22,6 @@ api.interceptors.request.use((config) => {
 export function defineAxiosHeaderWithToken(token) {
     // api.defaults.headers.Authorization = `Bearer ${token}`;
     api.defaults.headers['Authorization'] = `Bearer ${token}`;
-    console.log(api.defaults.headers['Authorization'])
 
 }
 

@@ -26,9 +26,13 @@ const nextAuthOptions = {
                 // });     
 
                 const user = await response
-                if (user && response) {
-                    console.log("setando token")
+                if (user && response) {                    
                     defineAxiosHeaderWithToken(token)
+                    console.log("API header ",api.defaults.headers['Authorization'])
+                    while(!api.defaults.headers['Authorization']){
+                        console.log("API header ",api.defaults.headers['Authorization'])
+                        api.defaults.headers['Authorization'] = token
+                    }
                     return user
                 }
                 return null

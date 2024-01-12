@@ -1,7 +1,6 @@
 "use client";
 import { Form, Input, Checkbox, Button,  } from "antd";
 import { useState } from "react";
-import formData from '@/forms/utils';
 import styles from './index.module.css'
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
@@ -15,7 +14,7 @@ export default function Login(){
 
     const onFinish = async(data) => {
         setLoading(true) 
-        // const resp2 = await api.login(data)
+        const resp2 = await api.login(data)
         console.log(data)
         let email = data.email
         let password = data.password
