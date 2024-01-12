@@ -27,7 +27,7 @@ def get_groups(current_user):
         if Group.query.filter_by(name=name).first():
             return Response(response=json.dumps({'errors':{"erro":"O nome já existe"}}), status=400, content_type="application/json")
         
-        if validate_heros(heros_list=heros, user_id=current_user.id):            
+        if validate_heros(heros_list=heros, user_id=current_user.id):          
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
         
         group:Group = Group(
@@ -68,6 +68,7 @@ def get_group(current_user, id):
         print(group_heros)
         
         if validate_heros(data['heros'], group_heros, current_user.id):
+            
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
 
         try:

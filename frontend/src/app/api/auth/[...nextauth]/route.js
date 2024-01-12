@@ -20,19 +20,10 @@ const nextAuthOptions = {
                 const response = await api.post("/auth/", data);
                 
                 const token = response.data.token
-                // setCookie(null, 'token', token, {
-                //     maxAge: 68400 * 7,
-                //     path: '/' 
-                // });     
 
                 const user = await response
                 if (user && response) {                    
                     defineAxiosHeaderWithToken(token)
-                    console.log("API header ",api.defaults.headers['Authorization'])
-                    while(!api.defaults.headers['Authorization']){
-                        console.log("API header ",api.defaults.headers['Authorization'])
-                        api.defaults.headers['Authorization'] = token
-                    }
                     return user
                 }
                 return null

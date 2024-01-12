@@ -1,2 +1,2 @@
 testes -> python -m pytest
-Rodar a aplicação -> docker-compose up
+Rodar a aplicação -> frontendt - npm run dev | backend - python main.py

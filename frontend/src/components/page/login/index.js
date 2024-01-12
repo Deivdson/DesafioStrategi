@@ -5,6 +5,7 @@ import styles from './index.module.css'
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { defineAxiosHeaderWithToken } from "@/api";
 
 export default function Login(){
     const router = useRouter();    
@@ -15,7 +16,7 @@ export default function Login(){
     const onFinish = async(data) => {
         setLoading(true) 
         const resp2 = await api.login(data)
-        console.log(data)
+        
         let email = data.email
         let password = data.password
         const resp = await signIn('credentials',{
@@ -23,13 +24,12 @@ export default function Login(){
             password,
             redirect:false
         })
-
-        console.log("RESULTADO: ", resp)
+        
         if (resp?.status != 200){
             console.log("RESULTADO: error", resp)
             return
         }
-        if (resp?.status == 200){
+        if (resp?.status == 200){            
             router.replace('/home')    
         }
     }
