@@ -1,6 +1,7 @@
 import axios from "axios";
 import nookies from "nookies";
-import { setCookie } from "nookies";
+import { setCookie, destroyCookie } from "nookies";
+import { signOut } from 'next-auth/react';
 
 const api = axios.create({
     baseURL: 'http://localhost:5000',
@@ -18,10 +19,19 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+export function defineAxiosHeaderWithToken(token) {
+    // api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers['Authorization'] = `Bearer ${token}`;
+    console.log(api.defaults.headers['Authorization'])
+
+}
+
 export const login = async (data) => {     
     try{
         const resp = await api.post("/auth/", data);
-        setCookie(null, 'token', resp.data.token, {
+        const token = resp.data.token;
+        defineAxiosHeaderWithToken(token)
+        setCookie(null, 'token', token, {
             maxAge: 68400 * 7,
             path: '/' 
         });     
@@ -37,6 +47,23 @@ export const login = async (data) => {
 }
 
 api.login = login
+
+
+export async function logout(redirect = true) {
+    console.log("logout")
+    await delete api.defaults.headers.common.Authorization;
+
+    destroyCookie(null, 'token', {
+        path: '/'
+    });
+
+    await signOut({
+        redirect: redirect,
+        callbackUrl: '/'
+    });
+}
+
+api.logout = logout
 
 export const register = async (data) => {
     try{

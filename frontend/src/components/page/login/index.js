@@ -15,7 +15,7 @@ export default function Login(){
 
     const onFinish = async(data) => {
         setLoading(true) 
-        // const resp = api.login(data)
+        // const resp2 = await api.login(data)
         console.log(data)
         let email = data.email
         let password = data.password
@@ -36,7 +36,9 @@ export default function Login(){
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container}>    
+                
+
             <h1>Gestão de Grupos de Heróis</h1>
 
             <Form
@@ -46,7 +48,9 @@ export default function Login(){
                 loading={loading}
                 
             >
-                <Form.Item                    
+
+                <Form.Item   
+                style={{color:'white'}}                 
                     label="Email"
                     name={'email'}>
                     <Input />

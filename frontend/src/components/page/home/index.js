@@ -96,6 +96,9 @@ export default function Home() {
 
     return(
     <div className={styles.container}>
+        <Button type="default" style={{color:'red', marginLeft:'auto'}}
+        onClick={() => {api.logout()}}
+        >Logout</Button>
         
         <ModalGroup open={openModalGroup} onClose={onCancelModalGroup} />        
         
