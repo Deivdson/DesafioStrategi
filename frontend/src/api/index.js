@@ -19,22 +19,32 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export function defineAxiosHeaderWithToken(token) {
-    // api.defaults.headers.Authorization = `Bearer ${token}`;
+export function defineAxiosHeaderWithToken(token) {    
+    console.log("Setando header ", token)
     api.defaults.headers['Authorization'] = `Bearer ${token}`;
+    
 
 }
 
-export const login = async (data) => {     
+export const login = async (data) => {      
     try{
         const resp = await api.post("/auth/", data);
-        const token = resp.data.token;
+        console.log("Resp do login: ", resp, 'data: ',data)
+
+        const token = resp.data.token;   
+        
+        console.log("Resp em login, ", resp)
         defineAxiosHeaderWithToken(token)
+
         setCookie(null, 'token', token, {
-            maxAge: 68400 * 7,
+            maxAge: 60 * 60 * 24,
             path: '/' 
-        });     
-        return {...resp.data}
+        });
+        data = {
+            data: resp.data,
+            status: resp.status
+        }     
+        return {...data}
 
     } catch (error) {
         if (error.response?.status == 400) {

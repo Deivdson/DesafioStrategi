@@ -5,7 +5,7 @@ import { herosToData, groupsToData } from '@/forms/utils';
 import ModalGroup from '../../modals/group';
 import { api } from '@/api';
 import styles from './index.module.css'
-
+import nookies from "nookies";
 
 export default function Home() {
     const [dataHeros, setDataHeros] = useState(null)
@@ -90,16 +90,13 @@ export default function Home() {
     }
 
     useEffect(() => {  
+        console.log("headers  ",api.defaults.headers, 'nookies ',nookies.get().token)
         loadHeros()     
     }, [])
 
 
     return(
-    <div className={styles.container}>
-        <Button type="default" style={{color:'red', marginLeft:'auto'}}
-        onClick={() => {api.logout()}}
-        >Logout</Button>
-        
+    <div className={styles.container}>        
         <ModalGroup open={openModalGroup} onClose={onCancelModalGroup} />        
         
         <h1>Gestão de Grupos de Heróis</h1>

@@ -1,19 +1,25 @@
 
 .container{
-    margin: 20% 40%;
-    text-align: center;
-    background-color: #102732;
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+    background-color: #102732; 
     padding: 2rem;
-    min-width: 10rem;
+    width: 27rem;
+    
+    margin-top: 5%;
 }
 
 .container h1{
+    text-align: center;
     padding-bottom: 2rem;
 }
 
 .container Input Button{
     max-width: 14rem;
     margin: 5rem 1rem;
+    background-color: #e0e0e0;
 }
 
 .container Button{
@@ -21,4 +27,27 @@
     font-weight: 1rem;
     color: white;
     background-color: chocolate;
+}
+
+.pai {
+    background-color: #e0e0e0;
+    color: white;
+}
+  
+  
+.pai .filho:first-child .Password {
+    background-color: #ffffff; 
+}
+
+.pai Password{
+    background-color: #ffffff; 
+}
+
+.inputEmail::placeholder {
+    color: #ffffff; 
+}
+
+.label {
+    color: white;    
+    width: 100%;
 }
