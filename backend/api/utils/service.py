@@ -11,7 +11,6 @@ class SslOldHttpAdapter(requests.adapters.HTTPAdapter):
             ssl_version=ssl.PROTOCOL_TLS,
             ssl_context=ctx)
 
-
 def compute_md5_hash(my_string):
     m = hashlib.md5()
     m.update(my_string.encode('utf-8'))
@@ -27,11 +26,11 @@ def make_authorization():
 
 def fetch_api(url):
     url += make_authorization()
-    print(url,'\n\n--------------------')
+    print('\n\n--------------------')
     s = requests.session()
     s.mount(url, SslOldHttpAdapter())
-    
-    response = s.get(url)    
+
+    response = s.get(url)
 
     caracters = response.json()['data']['results']
-    return caracters    
+    return (caracters, response.json()['data']['count'])

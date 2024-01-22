@@ -1,39 +1,54 @@
 import json
 from flask import Blueprint, request, Response
-from api.utils.authenticate import jwt_required
+from flask_jwt_extended import (jwt_required, get_jwt_identity)
+from flask_restx import Resource, marshal
 from api.utils.validators.hero import validate_heros
 from api.models.group import Group
 from api.models.hero import Hero
-from api.serializers.group_serializer import group_schema, groups_schema
+from api.serializers.group_serializer import group_schema, groups_schema, group_serializer
 from api.serializers.hero_serializer import hero_schema, heros_schema
 from api import db
+from . import np_grupos
 
 app = Blueprint("groups", __name__)
 
-@app.route('/', methods=['GET', 'POST'])
-@jwt_required
-def get_groups(current_user):
+class GrupoResource(Resource):
+    """Operações relacionadas a grupos"""
+    @jwt_required()
+    @np_grupos.response(200, 'Sucesso', group_serializer)
+    def get(self, id=None):
+        user_id = get_jwt_identity().get('id')
 
-    if request.method == "GET":
-        groups = Group.query.all()
-        return Response(response=groups_schema.dumps(groups), status=200, content_type="application/json")
+        if id:
+            groups = Group.query.filter(Group.user_id == user_id, Group.id == id).first()
 
-    elif request.method == "POST":
+            if not groups:
+                return Response(response=json.dumps({'erros':{'erro': 'Grupo não encontrado.'}}), status=400, content_type="application/json")                
+        else:
+            groups = Group.query.filter_by(user_id=user_id).all()
+        return marshal(groups, group_serializer), 200
+    
+    @jwt_required()
+    @np_grupos.response(200, 'Sucesso', group_serializer)
+    @np_grupos.expect(group_serializer)
+    def post(self):
+        
+        user_id = get_jwt_identity().get('id')
         data = request.get_json()
-        heros = data.get('heros')
+        heros = data.get('integrantes')
         name = data.get('name')
         description = data.get('description') or None
                 
         if Group.query.filter_by(name=name).first():
             return Response(response=json.dumps({'errors':{"erro":"O nome já existe"}}), status=400, content_type="application/json")
         
-        if validate_heros(heros_list=heros, user_id=current_user.id):          
+        if validate_heros(heros_list=heros, user_id=user_id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
         
         group:Group = Group(
             name=data.get('name'),
             description=description,
-            user_id=current_user.id,
+            user_id=user_id,
         )
 
         if len(heros)>0:
@@ -42,69 +57,82 @@ def get_groups(current_user):
 
         db.session.add(group)
         db.session.commit()
-
-        response = {group_schema.dumps(group)}        
-        return Response(response=response, status=200, content_type="application/json")
-
-@app.route('/<int:id>', methods=['GET', 'PUT', 'PATCH', 'DELETE'])
-@jwt_required
-def get_group(current_user, id):
-    if request.method == "GET":
-        group = Group.query.get_or_404(id)
-        return Response(response=group_schema.dumps(group), status=200, content_type="application/json")
-
-    elif request.method == "DELETE":
-        group = Group.query.get(id)
-        group.delete()
-        db.session.commit()
-        return Response(response={"response": "OK"}, status=200, content_type="application/json")
-
-    elif request.method == "PUT":
-        data = request.get_json()
-        group:Group = Group.query.get(id)
-            
-        group_heros = [gh.id for gh in group.integrantes]
-
-        print(group_heros)
         
-        if validate_heros(data['heros'], group_heros, current_user.id):
+        return marshal(group, group_serializer), 200
+    
+    @jwt_required()
+    @np_grupos.response(200, 'Sucesso', group_serializer)
+    @np_grupos.expect(group_serializer)
+    def put(self, id):
+        user_id = get_jwt_identity().get('id')
+        data = request.get_json()
+        group:Group = Group.query.get_or_404(id)
             
+        group_heros = [gh.id for gh in group.integrantes]        
+        
+        if validate_heros(data['integrantes'], group_heros, user_id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
 
         try:
             group.name = data['name']
             group.description = data['description']
-            heros = data['heros']
+            group.user_id = data['user_id']
+            heros = data['integrantes']
 
         except Exception as e:
-            return Response(response={"erros": {"erro": f"Dados inválidos! {e}"}}, status=400, content_type="application/json")
-                
+            return Response(response=json.dumps({"erros": {"erro": f"Dados inválidos! {e}"}}), status=400, content_type="application/json")
+
         new_heros = Hero.query.filter(Hero.id.in_(heros)).all()
         group.integrantes = new_heros
         db.session.commit()
 
-        return Response(response=group_schema.dumps(group), status=200, content_type="application/json")
-    
-    elif request.method == "PATCH":
+        return marshal(group, group_serializer), 200
+
+    @jwt_required()
+    @np_grupos.response(200, 'Sucesso', group_serializer)
+    @np_grupos.expect(group_serializer)
+    def patch(self, id):
+        user_id = get_jwt_identity().get('id')
         data = request.get_json()
-        group:Group = Group.query.get(id)
+        group:Group = Group.query.get_or_404(id)
 
         group_heros = [gh.id for gh in group.integrantes]
 
-        if validate_heros(data['heros'], group_heros, current_user.id):
+        if validate_heros(data['integrantes'], group_heros, user_id):
             return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
 
+        name =  data.get('user_id') or group.name
+        description =  data.get('user_id') or group.description
+        userID =  data.get('user_id') or group.user_id
+        heros =  data.get('integrantes') or group.integrantes
         try:
-            group.name = data.get('name')
-            group.description = data.get('description')
-            heros = data.get('heros')
+            group.name = name
+            group.description = description
+            group.user_id = userID
 
         except Exception as e:
-            return Response(response={"erros": {"erro": f"Dados inválidos! {e}"}}, status=400, content_type="application/json")
+            return Response(response=json.dumps({"erros": {"erro": f"Erro Inesperado! {e}"}}), status=400, content_type="application/json")
 
         new_heros = Hero.query.filter(Hero.id.in_(heros)).all()
         group.integrantes = new_heros
         db.session.commit()
+        
+        return marshal(group, group_serializer), 200
 
-        response = {"grupo":group_schema.dumps(group), "hero": heros_schema.dumps(heros)}
-        return Response(response=response, status=200, content_type="application/json")
+    @jwt_required()    
+    def delete(self, id):
+        group = Group.query.get_or_404(id)
+        group.delete()
+        db.session.commit()
+        return Response(response={"response": "OK"}, status=200, content_type="application/json")
+
+np_grupos.add_resource(
+    GrupoResource,
+    '/',
+    methods=['GET', 'POST']
+)
+np_grupos.add_resource(
+    GrupoResource,
+    '/<int:id>/',
+    methods=['GET', 'PUT', 'PATCH', 'DELETE']
+)
