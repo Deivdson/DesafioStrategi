@@ -7,6 +7,7 @@ import styles from './index.module.css'
 
 const NavBar = () => {
     const {data: session} = useSession();
+    console.log(session)
     if (!session) return <></>
     return (
         <div className={styles.navbar}>

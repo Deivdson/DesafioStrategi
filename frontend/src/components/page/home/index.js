@@ -41,7 +41,7 @@ export default function Home() {
             setTargetKeys(keys)
         }
     }    
-    
+
     const onChange = (nextTargetKeys, direction, moveKeys) => {        
         setTargetKeys(nextTargetKeys);
     };
@@ -52,7 +52,6 @@ export default function Home() {
     const changeGroup = (e) => {        
         setCurrentGroup(e)
 
-        console.log(currentGHeros, currentGroup, dataGroups[0].integrantes, "GROOOUSP")
         let group = dataGroups.filter((g) => g.value == e)[0]
         let gheros = herosToData(group.integrantes)        
 
@@ -71,12 +70,13 @@ export default function Home() {
 
         let data = {
             name: group[0].label,
-            description: group[0].description,
-            heros: targetKeys
+            description: group[0].description,            
+            integrantes: targetKeys
         }
-        const resp = await api.put_grupo(data, currentGroup)
-        console.log("Resp em",resp)
-        if (resp.status==200){
+        
+        const resp = await api.patch_grupo(data, currentGroup)
+        console.log("Resp em ", resp)
+        if (resp?.status==200){
             alert("Grupo Atualizado!")
         }
         loadHeros();
@@ -89,8 +89,7 @@ export default function Home() {
         setOpenModalGroup(false)
     }
 
-    useEffect(() => {  
-        console.log("headers  ",api.defaults.headers, 'nookies ',nookies.get().token)
+    useEffect(() => {        
         loadHeros()     
     }, [])
 
