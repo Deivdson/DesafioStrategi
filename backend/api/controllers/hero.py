@@ -1,5 +1,5 @@
 import json
-from flask import request, Response
+from flask import request, Response, Blueprint
 from flask_restx import Resource, marshal
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
 
@@ -17,6 +17,7 @@ from api.forms.form_hero import form_hero_parse
 from api import db
 from . import np_herois
 
+app = Blueprint("herois", __name__)
 
 class HeroiResource(Resource):
     """Operações relacionadas a heróis"""

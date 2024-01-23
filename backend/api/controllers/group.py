@@ -10,7 +10,7 @@ from api.serializers.hero_serializer import hero_schema, heros_schema
 from api import db
 from . import np_grupos
 
-app = Blueprint("groups", __name__)
+app = Blueprint("grupos", __name__)
 
 class GrupoResource(Resource):
     """Operações relacionadas a grupos"""
@@ -64,6 +64,7 @@ class GrupoResource(Resource):
     @np_grupos.response(200, 'Sucesso', group_serializer)
     @np_grupos.expect(group_serializer)
     def put(self, id):
+        print("On put")
         user_id = get_jwt_identity().get('id')
         data = request.get_json()
         group:Group = Group.query.get_or_404(id)

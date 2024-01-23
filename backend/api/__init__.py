@@ -7,7 +7,7 @@ from flask_restx import Api
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SECRET_KEY'] = 'secret'
-CORS(app)
+# CORS(app)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
