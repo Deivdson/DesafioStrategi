@@ -25,12 +25,9 @@ export function defineAxiosHeaderWithToken(token) {
 
 export const login = async (data) => {      
     try{
-        const resp = await api.post("/auth/", data);
-        console.log("Resp do login: ", resp, 'data: ',data)
-
+        const resp = await api.post("/auth/", data);        
         const token = resp.data.token;   
         
-        console.log("Resp em login, ", resp)
         defineAxiosHeaderWithToken(token)
 
         setCookie(null, 'token', token, {
@@ -73,12 +70,12 @@ api.logout = logout
 
 export const register = async (data) => {
     try{
-        const resp = await api.post("/auth/register/", data)
-        return resp.data
+        const resp = await api.post(`/auth/register/`, data)
+        return resp
 
     } catch (error) {
-        if (error.response?.status == 400) {
-            throw error.response.data;
+        if (error.response?.status == 400) {            
+            return error.response.data
         } else{
             console.error( "Erro ao acessar servidor", error)
         }
@@ -157,9 +154,9 @@ export const grupos = async (group_id) => {
         return resp.data
 
     } catch (error){
-        if (error.response?.status == 400) {
+        if (error.response?.status == 400) {            
             throw error.response.data;
-        } else{
+        }else{
             console.error( "Erro ao acessar servidor", error)
         }
     }

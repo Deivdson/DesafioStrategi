@@ -51,3 +51,11 @@ span {
 /* .table-design th {
   color: var(--color-secondary-dark) !important;
 } */
+
+.Input .Password{
+  background-color: white;
+}
+
+.ant-input .css-g0ph12 .css-g0ph12{
+  background-color: white;
+}

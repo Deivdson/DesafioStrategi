@@ -23,23 +23,20 @@ const nextAuthOptions = {
                     email: credentials?.email,
                     password: credentials?.password
                 }                
+                
                 try{
-                    const response = await api.login(data);
-                    // const response = await api.post("/auth/", data);
-                    console.log("RESPONSE: zz", response)
+                    // const response = await api.login(data);
+                    const response = await api.post("/auth/", data);
+                    console.log('resposne: ',response)
+                    console.log('resposne sign: ',response?.data)
+                  
                     if (response){
-                        const {token, user} = response
-                        defineAxiosHeaderWithToken(token);
-                        
-                        setCookie(null, 'token', token, {
-                            maxAge: 60 * 60 * 24,
-                            path: '/' 
-                        });  
-                        return response
-                    }                
-                    return null
+                        return response.data
+                    }else{
+                        return null
+                    }      
                 } catch (error) {
-                    console.error("ERROR 01",error)
+                    console.error("ERROR: ",error)
                     return null
                 }
                 
@@ -53,15 +50,17 @@ const nextAuthOptions = {
             if (user) {
                 token.user = user;
             }            
+            console.log("No JWT: ", token) 
             return {...token, ...user};
         },
-        session: async ({ session, token, user }) => {            
+        session: async ({ session, token, user }) => {   
             session.user = token
+            console.log("Na sessão: ", session)         
             return session
         }        
     },
     pages: {
-        signIn: '/components/page/login'
+        signIn: '/login'
     }
 }
 

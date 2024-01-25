@@ -1,10 +1,62 @@
-.main {
+/* .main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+} */
+
+/* page.module.css */
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.marvelLogo {
+  margin-bottom: 20px;
+  font-family: 'fantasy';
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.gifContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.gif {
+  width: 150px;
+  height: 150px;
+  margin: 0 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gif:hover {
+  transform: scale(1.1);
+}
+
+.manageGroupsButton {
+  background-color: chocolate;
+  color: white;
+  font-family: 'fantasy';
+  font-size: 16px;
+  padding: -1rem;
+  margin: 10px;
+  border: 2px solid rgb(178, 89, 26);
+  transition: background-color 0.3s ease;
+}
+
+.manageGroupsButton:hover {
+  background-color: #fff;
+  color: rgb(178, 89, 26);
 }
 
 .description {
@@ -215,7 +267,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .vercelLogo {
     filter: invert(1);
   }
@@ -223,7 +275,7 @@
   .logo {
     filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
   }
-}
+} */
 
 @keyframes rotate {
   from {

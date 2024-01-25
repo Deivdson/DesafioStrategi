@@ -1,33 +1,30 @@
 "use client";
-import { Form, Input, Checkbox, Button, Alert,  } from "antd";
+import { Form, Input, Button, Alert,  } from "antd";
 import { useCallback, useState } from "react";
 import styles from './index.module.css'
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
 import { signIn, useSession, getSession } from "next-auth/react";
-import { setCookie, destroyCookie } from "nookies";
-import { defineAxiosHeaderWithToken } from "@/api";
+import Link from "next/link";
 
 export default function Login(){
     const router = useRouter();    
 
     const [form] = Form.useForm();
-    const [loading, setLoading] = useState(false)
-    const session = useSession();
+    const [loading, setLoading] = useState(false)    
 
     const onFinish = useCallback(async(data) => {
         setLoading(true)
 
         let email = data.email
         let password = data.password
-        const resp = await api.login(data);        
+        
+        const resp = await api.login(data);
         
         if (resp?.status !== 200) {
-
             alert('Não foi possível realizar o login');
-
         } else {
-
+            console.log('else ', resp.status)
             const resp2 = await signIn(
                 'credentials',
                 {
@@ -36,14 +33,10 @@ export default function Login(){
                     redirect:false
                 }
             );
-            
-            const token = resp?.data?.token;
-            console.log("resp de login: ", resp, "resp signin: ", resp2,'\n\n', api.defaults.headers)
-            // defineAxiosHeaderWithToken(token)
-            // setCookie(null, 'token', token, {
-            //     maxAge: 60 * 60 * 24 * 30,
-            //     path: '/'
-            // });
+            console.log('Resp 2 ', resp2)
+
+
+            setLoading(false)
 
             router.replace('/home')
                     
@@ -54,7 +47,6 @@ export default function Login(){
 
     return (
         <div className={styles.container}>    
-                
 
             <h1>Gestão de Grupos de Heróis</h1>
 
@@ -62,15 +54,19 @@ export default function Login(){
                 form={form}
                 layout="vertical"
                 onFinish={onFinish}
-                loading={loading}
-                
-            >
-                {/* <label className={styles.label} for='email'>Email</label> */}
+            >                
                 <Form.Item                    
-                    name={'email'}>
+                    name={'email'}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Por favor, insira seu E-mail!',
+                        },
+                        ]}
+                    >
                     <Input placeholder="E-mail" />
                 </Form.Item>
-                {/* <label className={styles.label} for='password'>Password</label> */}
+               
                 <Form.Item                    
                     name="password"
                     rules={[
@@ -86,6 +82,12 @@ export default function Login(){
                     Entrar
                 </Button>
             </Form>
+
+            <div className={styles.register}>Ainda não possui uma conta? 
+                <Link href="/register" style={{color:'rgb(180, 220, 255)'}}>
+                    Registre-se aqui.
+                </Link>
+            </div>
 
         </div>
     );

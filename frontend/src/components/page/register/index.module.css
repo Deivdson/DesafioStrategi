@@ -29,21 +29,6 @@
     background-color: chocolate;
 }
 
-.pai {
-    background-color: #e0e0e0;
-    color: white;
-}
-  
-  
-.pai .filho:first-child .Password {
-    background-color: #ffffff; 
-}
-
-.pai .Password{
-    background-color: #ffffff; 
-}
-
-
 .label {
     color: white;    
     width: 100%;

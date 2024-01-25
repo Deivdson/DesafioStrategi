@@ -35,3 +35,10 @@
 .tranfer-li{
     background-color: rgb(255, 255, 255);
 }
+
+.btn{
+    margin-left: auto;
+    border-radius: 5px;
+    height: 100%;
+    margin: 6px;
+}

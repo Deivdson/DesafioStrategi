@@ -20,7 +20,7 @@ app = Blueprint("auth", __name__)
 
 class RegisterResource(Resource):
     """Registro"""    
-    
+
     @np_auth.response(200, 'Sucesso', user_serializer)
     @np_auth.expect(register_serializer)
     def post(self):
@@ -43,7 +43,7 @@ class RegisterResource(Resource):
                 400
             )
 
-        return response_register('success', user_serializer, user)        
+        return response_register('success', user_serializer, user)
 
 class LoginResource(Resource):
     """Login"""
@@ -85,6 +85,6 @@ np_auth.add_resource(
 
 np_auth.add_resource(
     RegisterResource,
-    '/register',
+    '/register/',
     methods=['POST']
 )

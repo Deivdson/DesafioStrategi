@@ -5,7 +5,6 @@ import { herosToData, groupsToData } from '@/forms/utils';
 import ModalGroup from '../../modals/group';
 import { api } from '@/api';
 import styles from './index.module.css'
-import nookies from "nookies";
 
 export default function Home() {
     const [dataHeros, setDataHeros] = useState(null)
@@ -25,16 +24,18 @@ export default function Home() {
         const dataGroup = await api.grupos();
         const data = await api.heros();
 
+
         if(data && dataGroup){            
             
             let dheros = herosToData(data)            
-            let gheros = herosToData(dataGroup[0].integrantes)
+            let gheros = herosToData(dataGroup[0]?.integrantes || [])
             
-            setDataHeros(dheros);                                    
-            setDataSource([...dheros,...gheros])
+            console.log('setdatasource: ', [...dheros,...gheros])
+            setDataHeros(dheros);
+            setDataSource([...dheros,...gheros]);
             setDataGroups(groupsToData(dataGroup));
             setCurrentGHeros(gheros);
-            setCurrentGroup(dataGroup[0].id) 
+            setCurrentGroup(dataGroup[0]?.id || null)
             
             let keys = []
             gheros.map((e) => {keys.push(e.key)})            
@@ -86,7 +87,8 @@ export default function Home() {
         setOpenModalGroup(true)
     }
     const onCancelModalGroup = () => {
-        setOpenModalGroup(false)
+        setOpenModalGroup(false);
+        loadHeros();
     }
 
     useEffect(() => {        
@@ -101,24 +103,25 @@ export default function Home() {
         <h1>Gestão de Grupos de Heróis</h1>
 
         <Row style={{alignItems:'end'}}>            
-            <Col offset={15} span={3}>
-                <Button type='link' onClick={showDrawGroup}>
-                    + Adicionar grupo
-                </Button>                
+            <Col offset={18} span={3}>
+            <Button type='link' className={styles.btn} onClick={showDrawGroup}>
+                + Adicionar grupo
+            </Button>                
             </Col>
         </Row>
         <Row>
             <Col offset={2}>
             <Transfer
+
                 titles={
                     ['Heros',
-                    <Select 
-                        style={{width:"100%"}} 
+                    <Select                         
                         value={currentGroup}                  
                         options={dataGroups} 
-                        onChange={changeGroup} 
+                        onChange={changeGroup}
+                        style={{backgroundColor:'white'}}
                     />]}
-
+                type='primary'
                 dataSource={dataSource}
                 targetKeys={targetKeys}
                 selectedKeys={selectedKeys}
@@ -126,7 +129,7 @@ export default function Home() {
                 onSelectChange={onSelectChange}
                 pagination={true}                             
                 listStyle={{color:'white',}}
-                style={{color:'white'}}
+                
                 render={(item) => 
                     <Tooltip title={item.description}>{item.title}</Tooltip>
                 }
@@ -136,8 +139,6 @@ export default function Home() {
                 </Button>
             </Col>
         </Row>
-
-        
 
     </div>
     )

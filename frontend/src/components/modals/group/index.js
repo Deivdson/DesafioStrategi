@@ -30,7 +30,7 @@ export default function ModalGroup({open, onClose}) {
     }, [open, form]);
 
     return (
-        <Modal footer={null}  className={styles.container} open={open} onCancel={onClose}>
+        <Modal footer={null}  className={styles.container} open={open} onCancel={onClose} >
             <h1>Adicionar Grupo</h1>
           <Space direction="vertical">
             <Form
@@ -39,12 +39,14 @@ export default function ModalGroup({open, onClose}) {
               loading={loading}
               className={styles.form}                          
             >
+              <label className={styles.label} htmlFor='name'>Nome</label>
               <Form.Item                               
                 name={'name'}                
               >
                   <Input />
               </Form.Item>
 
+              <label className={styles.label} htmlFor='description'>Descrição</label>
               <Form.Item
                 name={'description'}                
               >
