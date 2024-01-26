@@ -22,6 +22,18 @@ export default function Login(){
         if (resp?.status !== 200) {
             alert('Não foi possível realizar o login');
         } else {
+            const email = data.email
+            const password = data.password
+            const resp2 = await signIn(
+                'credentials', {
+                     email:email,
+                     password:password,
+                    redirect: false,
+                }
+            )
+
+            console.log(' resp2: ',resp2)
+
             setCookie(null, 'user', resp.data, {
                 maxAge: 60 * 60 * 24,
                 path: '/' 
