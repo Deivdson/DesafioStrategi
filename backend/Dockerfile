@@ -16,5 +16,4 @@ RUN pip install -r requirements.txt
 COPY . .
 COPY .env .env
 
-
 CMD python -m pytest; python main.py

@@ -6,7 +6,6 @@ import ModalGroup from '../../modals/group';
 import { api } from '@/api';
 import styles from './index.module.css'
 
-
 export default function Home() {
     const [dataHeros, setDataHeros] = useState(null)
     const [dataGroups, setDataGroups] = useState(null)
@@ -25,23 +24,25 @@ export default function Home() {
         const dataGroup = await api.grupos();
         const data = await api.heros();
 
+
         if(data && dataGroup){            
             
             let dheros = herosToData(data)            
-            let gheros = herosToData(dataGroup[0].integrantes)
+            let gheros = herosToData(dataGroup[0]?.integrantes || [])
             
-            setDataHeros(dheros);                                    
-            setDataSource([...dheros,...gheros])
+            console.log('setdatasource: ', [...dheros,...gheros])
+            setDataHeros(dheros);
+            setDataSource([...dheros,...gheros]);
             setDataGroups(groupsToData(dataGroup));
             setCurrentGHeros(gheros);
-            setCurrentGroup(dataGroup[0].id) 
+            setCurrentGroup(dataGroup[0]?.id || null)
             
             let keys = []
             gheros.map((e) => {keys.push(e.key)})            
             setTargetKeys(keys)
         }
     }    
-    
+
     const onChange = (nextTargetKeys, direction, moveKeys) => {        
         setTargetKeys(nextTargetKeys);
     };
@@ -52,7 +53,6 @@ export default function Home() {
     const changeGroup = (e) => {        
         setCurrentGroup(e)
 
-        console.log(currentGHeros, currentGroup, dataGroups[0].integrantes, "GROOOUSP")
         let group = dataGroups.filter((g) => g.value == e)[0]
         let gheros = herosToData(group.integrantes)        
 
@@ -71,66 +71,67 @@ export default function Home() {
 
         let data = {
             name: group[0].label,
-            description: group[0].description,
-            heros: targetKeys
+            description: group[0].description,            
+            integrantes: targetKeys
         }
-        const resp = await api.put_grupo(data, currentGroup)
-        console.log("Resp em",resp)
-        if (resp.status==200){
+        
+        const resp = await api.patch_grupo(data, currentGroup)
+        console.log("Resp em ", resp)
+        if (resp?.status==200){
             alert("Grupo Atualizado!")
         }
+        loadHeros();
     }
 
     const showDrawGroup = () => {
         setOpenModalGroup(true)
     }
     const onCancelModalGroup = () => {
-        setOpenModalGroup(false)
+        setOpenModalGroup(false);
+        loadHeros();
     }
 
-    useEffect(() => {  
-        loadHeros()         
+    useEffect(() => {        
+        loadHeros()     
     }, [])
 
 
     return(
-    <div className={styles.container}>
-        
+    <div className={styles.container}>        
         <ModalGroup open={openModalGroup} onClose={onCancelModalGroup} />        
         
         <h1>Gestão de Grupos de Heróis</h1>
 
         <Row style={{alignItems:'end'}}>            
-            <Col offset={15} span={3}>
-                <Button type='link' className={styles.addButton} onClick={showDrawGroup}>
-                    + Adicionar grupo
-                </Button>                
+            <Col offset={18} span={3}>
+            <Button type='link' className={styles.btn} onClick={showDrawGroup}>
+                + Adicionar grupo
+            </Button>                
             </Col>
         </Row>
         <Row>
             <Col offset={2}>
             <Transfer
+
                 titles={
                     ['Heros',
-                    <Select 
-                        style={{width:"100%"}} 
-                        value={currentGroup}                        
+                    <Select                         
+                        value={currentGroup}                  
                         options={dataGroups} 
-                        onChange={changeGroup} 
+                        onChange={changeGroup}
+                        style={{backgroundColor:'white'}}
                     />]}
-
+                type='primary'
                 dataSource={dataSource}
                 targetKeys={targetKeys}
                 selectedKeys={selectedKeys}
                 onChange={onChange}
-                onSelectChange={onSelectChange}   
-                pagination={true}        
-                style={styles.transfer}        
-                listStyle={{color:'white'}}  
+                onSelectChange={onSelectChange}
+                pagination={true}                             
+                listStyle={{color:'white',}}
+                
                 render={(item) => 
-                    
                     <Tooltip title={item.description}>{item.title}</Tooltip>
-                    
                 }
             />
                 <Button className={styles.submitButton} onClick={finish}>
@@ -138,8 +139,6 @@ export default function Home() {
                 </Button>
             </Col>
         </Row>
-
-        
 
     </div>
     )

@@ -11,7 +11,7 @@ export default function ModalGroup({open, onClose}) {
       setLoading(true)      
       const new_data = {'name': data.name,
         'description': data.description,
-        'heros':[]}
+        'integrantes':[]}
       
       const resp = api.post_grupo(new_data);
       
@@ -30,29 +30,29 @@ export default function ModalGroup({open, onClose}) {
     }, [open, form]);
 
     return (
-        <Modal footer={null} style={{backgroundColor:'#102732'}} className={styles.container} open={open} onCancel={onClose}>
+        <Modal footer={null}  className={styles.container} open={open} onCancel={onClose} >
             <h1>Adicionar Grupo</h1>
           <Space direction="vertical">
             <Form
               form={form}
               onFinish={onFinish}
               loading={loading}
-              
+              className={styles.form}                          
             >
-              <Form.Item
-                name={'name'}
-                label={'Nome'}
+              <label className={styles.label} htmlFor='name'>Nome</label>
+              <Form.Item                               
+                name={'name'}                
               >
                   <Input />
               </Form.Item>
 
+              <label className={styles.label} htmlFor='description'>Descrição</label>
               <Form.Item
-                name={'description'}
-                label={'Descrição'}
+                name={'description'}                
               >
                   <Input />
               </Form.Item>
-              <Button htmlType="submit">
+              <Button htmlType="submit" className={styles.btn}>
                 Adicionar
               </Button>
             </Form>
