@@ -100,7 +100,11 @@ export default function Home() {
     <div className={styles.container}>        
         <ModalGroup open={openModalGroup} onClose={onCancelModalGroup} />        
         
+        <div>
+        <img src='strategi.png'></img>
+        <img style={{height:'4.5rem'}} src='images/marvel_logo.png'></img>
         <h1>Gestão de Grupos de Heróis</h1>
+        </div>
 
         <Row style={{alignItems:'end'}}>            
             <Col offset={18} span={3}>

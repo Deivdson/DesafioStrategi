@@ -48,17 +48,13 @@ export default function RootLayout({ children }) {
       
               // Alias Token
               colorBgContainer: 'white',
-                            
               colorBgElevated:'white',
-
               colorBgBase: '102732',
-
               activeBg: 'ffffff',
-              borderRadiusLG: '5px',              
-              contentBg:'102732',             
-              
+              contentBg:'102732',
+              colorError:'ff4d4f',          
               colorSplit: 'white',
-
+              borderRadiusLG: '5px',
             },
           }}
         >
