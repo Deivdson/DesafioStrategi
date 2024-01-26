@@ -40,7 +40,7 @@ export default function Login(){
     if(loading) return <Spin className={styles.spin}/>
 
     return (
-        <div className={styles.container}>    
+        <div className={styles.container}>
 
             <h1>Gestão de Grupos de Heróis</h1>
 
