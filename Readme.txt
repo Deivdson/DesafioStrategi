@@ -1,4 +1,3 @@
-Branch Dev
 testes -> python -m pytest
 <<<<<<< HEAD
 Rodar a aplicação -> frontendt - npm run dev | backend - python main.py
