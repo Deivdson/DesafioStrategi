@@ -31,7 +31,7 @@ const nextAuthOptions = {
                     console.log('resposne sign: ',response?.data)
                   
                     if (response){
-                        return response.data
+                        return response?.data
                     }else{
                         return null
                     }      

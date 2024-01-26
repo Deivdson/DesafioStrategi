@@ -1,10 +1,11 @@
 "use client";
-import { Form, Input, Button, Alert,  } from "antd";
+import { Form, Input, Button, Alert, Spin } from "antd";
 import { useCallback, useState } from "react";
 import styles from './index.module.css'
 import { api } from "@/api";
 import { useRouter } from "next/navigation";
 import { signIn, useSession, getSession } from "next-auth/react";
+import { setCookie, destroyCookie } from "nookies";
 import Link from "next/link";
 
 export default function Login(){
@@ -14,27 +15,18 @@ export default function Login(){
     const [loading, setLoading] = useState(false)    
 
     const onFinish = useCallback(async(data) => {
-        setLoading(true)
-
-        let email = data.email
-        let password = data.password
         
         const resp = await api.login(data);
+        setLoading(true)
         
         if (resp?.status !== 200) {
             alert('Não foi possível realizar o login');
         } else {
-            console.log('else ', resp.status)
-            const resp2 = await signIn(
-                'credentials',
-                {
-                    email,
-                    password,
-                    redirect:false
-                }
-            );
-            console.log('Resp 2 ', resp2)
-
+            setCookie(null, 'user', resp.data, {
+                maxAge: 60 * 60 * 24,
+                path: '/' 
+            });
+                    
 
             setLoading(false)
 
@@ -44,6 +36,8 @@ export default function Login(){
         
         return; 
     }, [])
+
+    if(loading) return <Spin className={styles.spin}/>
 
     return (
         <div className={styles.container}>    

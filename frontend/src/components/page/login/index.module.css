@@ -34,7 +34,6 @@
     color: white;
 }
   
-  
 .pai .filho:first-child .Password {
     background-color: #ffffff; 
 }
@@ -56,4 +55,10 @@
 .register {
     margin-top: 1rem;
     text-align: center;
+}
+
+.spin{
+    color: chocolate;    
+    
+    margin: 50%;
 }

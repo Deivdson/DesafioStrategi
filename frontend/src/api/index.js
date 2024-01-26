@@ -3,6 +3,7 @@ import nookies from "nookies";
 import { setCookie, destroyCookie } from "nookies";
 import { signOut } from 'next-auth/react';
 
+
 const api = axios.create({
     baseURL: 'http://localhost:5000',
     redirect: "follow",
@@ -52,11 +53,14 @@ export const login = async (data) => {
 api.login = login
 
 
-export async function logout(redirect = true) {
-    console.log("logout")
+export async function logout(redirect = true) {    
     await delete api.defaults.headers.common.Authorization;
 
     destroyCookie(null, 'token', {
+        path: '/'
+    });
+
+    destroyCookie(null, 'user', {
         path: '/'
     });
 
@@ -201,7 +205,7 @@ export const patch_grupo = async (data, group_id) => {
             const resp = await api.patch(`/grupos/${group_id}/`, data)
             return resp.data
         }
-        
+
     } catch (error){
         console.log("ERRO DO PATCH ", error)
         if (error.response?.status == 400) {
@@ -219,7 +223,7 @@ export const delete_grupo = async (group_id) => {
             const resp = await api.delete(`/grupos/${group_id}/`)
             return resp.data
         }
-        
+
     } catch (error){
         if (error.response?.status == 400) {
             throw error.response.data;

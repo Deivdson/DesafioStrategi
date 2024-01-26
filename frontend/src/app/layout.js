@@ -19,7 +19,8 @@ export default function RootLayout({ children }) {
                 colorBgBase: '102732',
                 activeBg: 'ffffff',
                 colorBgElevated:'#102732',
-                borderRadius: '5rem', 
+                borderRadius: '5rem',
+                colorError:'red',
               },
               Transfer: {     
                 colorPrimary: '#00b96b',
