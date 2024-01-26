@@ -20,29 +20,23 @@ const nextAuthOptions = {
             },
             authorize: async (credentials) => {
                 const data = {
-                    email: credentials?.email,
-                    password: credentials?.password
-                }                
-                
-                try{
-                    // const response = await api.login(data);
-                    const response = await api.post("/auth/", data);
-                    console.log('resposne: ',response)
-                    console.log('resposne sign: ',response?.data)
-                  
-                    if (response){
-                        return response?.data
-                    }else{
-                        return null
-                    }      
-                } catch (error) {
-                    console.error("ERROR: ",error)
-                    return null
+                    email: credencials?.email,
+                    password: credencials?.password
                 }
-                
+                const response = await api.post("/auth/", data);
+                   
+
+                const user = await response
+                if (user && response) {
+                    setCookie(null, 'token', response.data.token, {
+                        maxAge: 68400 * 7,
+                        path: '/' 
+                    });  
+                    return user
+                }
+                return null
             },
 
-            
         })
     ],
     callbacks:{        
