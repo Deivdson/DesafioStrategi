@@ -123,7 +123,7 @@ export default function Home() {
                         value={currentGroup}                  
                         options={dataGroups} 
                         onChange={changeGroup}
-                        style={{backgroundColor:'white'}}
+                        style={{backgroundColor:'white'}}                        
                     />]}
                 type='primary'
                 dataSource={dataSource}

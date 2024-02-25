@@ -16,7 +16,13 @@ export default function Login(){
 
     const onFinish = useCallback(async(data) => {
         
-        const resp = await api.login(data);
+        // const resp = await api.login(data);
+        const resp = await signIn(
+            'credentials',{
+                email:data.email,
+                password:data.password
+            }
+        )
         setLoading(true)
         
         if (resp?.status !== 200) {
