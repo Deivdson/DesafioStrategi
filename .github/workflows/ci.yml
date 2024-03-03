@@ -25,5 +25,5 @@ jobs:
       - name: Instanlando dependências
         run: pip install -r backend/requirements.txt
       
-      - uses: browser-actions/setup-chrome@1.4.0
+      - uses: browser-actions/setup-chrome@v1.4.0
 
