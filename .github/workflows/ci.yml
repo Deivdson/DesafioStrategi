@@ -1,0 +1,29 @@
+name: Python CI pipeline
+
+on: 
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Copia arquivos do repositorio 
+        uses: actions/checkout@v3
+
+      - name: Config Python version
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.9'
+        
+      - name: Create and start virtual enviroment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
+      - name: Instanlando dependências
+        run: pip install -r backend/requirements.txt
+      
+      - uses: browser-actions/setup-chrome@1.4.0
+
