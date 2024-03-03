@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build backend:
+  build:
     runs-on: ubuntu-latest
 
     steps:
