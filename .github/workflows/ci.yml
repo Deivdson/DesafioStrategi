@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +27,23 @@ jobs:
       
       - uses: browser-actions/setup-chrome@v1.4.0
 
+      - name: Run backend tests
+        run: |
+          cd backend
+          python -m pytest
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+      
