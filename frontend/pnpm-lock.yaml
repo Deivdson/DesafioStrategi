@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   antd:
-    specifier: ^5.15.3
-    version: 5.15.3(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^5.15.4
+    version: 5.15.4(react-dom@18.2.0)(react@18.2.0)
   axios:
     specifier: ^1.6.4
     version: 1.6.6
@@ -61,8 +61,8 @@ packages:
       '@ctrl/tinycolor': 3.6.1
     dev: false
 
-  /@ant-design/cssinjs@1.18.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-IrUAOj5TYuMG556C9gdbFuOrigyhzhU5ZYpWb3gYTxAwymVqRbvLzFCZg6OsjLBR6GhzcxYF3AhxKmjB+rA2xA==}
+  /@ant-design/cssinjs@1.18.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Ub4n3d+MAX/qtE5S9PM8iOn5ocU7GUAIC4Adc2X8UCMXnsRRfpJBHsBdtQ1qoAuaQ7lU2M1BTCuJ+fkv4fOWiw==}
     peerDependencies:
       react: '>=16.0.0'
       react-dom: '>=16.0.0'
@@ -722,14 +722,14 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /antd@5.15.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-53dpdGbfwipHVbqITmppp8N16i+BscMzz8NUNwaJgxwSvO9VQh/NfC/90lqGq3I2oBmxQ8TzRIxzFVKD/9OhlQ==}
+  /antd@5.15.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-79eLOQW1DG92yzulx+ValfHFjvPnaaI41BffGquAnzx42Ws3eEcKofsa2jNRyJN5NWr9I5wqvABDq9rRRfGGsg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
       '@ant-design/colors': 7.0.2
-      '@ant-design/cssinjs': 1.18.4(react-dom@18.2.0)(react@18.2.0)
+      '@ant-design/cssinjs': 1.18.5(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/icons': 5.3.5(react-dom@18.2.0)(react@18.2.0)
       '@ant-design/react-slick': 1.0.2(react@18.2.0)
       '@babel/runtime': 7.24.1
@@ -744,7 +744,7 @@ packages:
       qrcode.react: 3.1.0(react@18.2.0)
       rc-cascader: 3.24.0(react-dom@18.2.0)(react@18.2.0)
       rc-checkbox: 3.2.0(react-dom@18.2.0)(react@18.2.0)
-      rc-collapse: 3.7.2(react-dom@18.2.0)(react@18.2.0)
+      rc-collapse: 3.7.3(react-dom@18.2.0)(react@18.2.0)
       rc-dialog: 9.4.0(react-dom@18.2.0)(react@18.2.0)
       rc-drawer: 7.1.0(react-dom@18.2.0)(react@18.2.0)
       rc-dropdown: 4.2.0(react-dom@18.2.0)(react@18.2.0)
@@ -2593,8 +2593,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /rc-collapse@3.7.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ZRw6ipDyOnfLFySxAiCMdbHtb5ePAsB9mT17PA6y1mRD/W6KHRaZeb5qK/X9xDV1CqgyxMpzw0VdS74PCcUk4A==}
+  /rc-collapse@3.7.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-60FJcdTRn0X5sELF18TANwtVi7FtModq649H11mYF1jh83DniMoM4MqY627sEKRCTm4+WXfGDcB7hY5oW6xhyw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
