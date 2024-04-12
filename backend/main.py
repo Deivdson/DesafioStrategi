@@ -10,7 +10,6 @@ from datetime import timedelta
 
 CORS(app)
 
-app.config['SECRET_KEY'] = 'secret'
 app.config["JWT_SECRET_KEY"] = "asmdkamsjfnmamsmsdmsaakmfmfmaskmkfaskd"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=30)
 jwt = JWTManager(app)
