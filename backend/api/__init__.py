@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_restx import Api
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SECRET_KEY'] = 'secret'
-# CORS(app)
+app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
