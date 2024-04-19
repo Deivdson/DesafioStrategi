@@ -5,9 +5,8 @@
   text-align: right;
 }
 
-.btn {
-  margin-left: auto;
-  border-radius: 5px;
-  height: 100%;
-  margin: 6px;
+.btn{
+    border-radius: 5px;
+    height: 100%;
+    margin: 6px;
 }

@@ -8,6 +8,7 @@ from api.models.hero import Hero
 from api.serializers.group_serializer import group_schema, groups_schema, group_serializer
 from api.serializers.hero_serializer import hero_schema, heros_schema
 from api import db
+from api.utils.response.erros import erro_selected_heros
 from . import np_grupos
 
 app = Blueprint("grupos", __name__)
@@ -43,7 +44,7 @@ class GrupoResource(Resource):
             return Response(response=json.dumps({'errors':{"erro":"O nome já existe"}}), status=400, content_type="application/json")
         
         if validate_heros(heros_list=heros, user_id=user_id):
-            return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
+            return erro_selected_heros()
         
         group:Group = Group(
             name=data.get('name'),
@@ -72,7 +73,7 @@ class GrupoResource(Resource):
         group_heros = [gh.id for gh in group.integrantes]        
         
         if validate_heros(data['integrantes'], group_heros, user_id):
-            return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
+            return erro_selected_heros()
 
         try:
             group.name = data['name']
@@ -100,7 +101,7 @@ class GrupoResource(Resource):
         group_heros = [gh.id for gh in group.integrantes]
 
         if validate_heros(data['integrantes'], group_heros, user_id):
-            return Response(response=json.dumps({'errors':{"erro":"Os heróis selecionados já fazem parte de um grupo"}}), status=400, content_type="application/json")
+            return erro_selected_heros()
 
         name =  data.get('user_id') or group.name
         description =  data.get('user_id') or group.description
