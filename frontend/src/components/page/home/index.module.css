@@ -1,44 +1,43 @@
-
-.container{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    background-color: #102732; 
-    padding: 1rem;
-    width: 40rem;
-    position: relative;
-    margin-top: 5%;
+.container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: #102732;
+  padding: 1rem;
+  width: 40rem;
+  position: relative;
+  margin-top: 5%;
 }
 
-.container h1{
-    padding-bottom: 2rem;
+.container h1 {
+  padding-bottom: 2rem;
 }
 
-.container Transfer Button{
-    max-width: 193rem;
-    margin: 5rem 1rem;
+.container Transfer Button {
+  max-width: 193rem;
+  margin: 5rem 1rem;
 }
 
-.submitButton{
-    width: 100%;
-    font-weight: 1rem;
-    margin-top: 2rem;
-    color: white;
-    background-color: chocolate;
+.submitButton {
+  width: 100%;
+  font-weight: 1rem;
+  margin-top: 2rem;
+  color: white;
+  background-color: chocolate;
 }
 
-.addButton{
-    background-color: #102732;
+.addButton {
+  background-color: #102732;
 }
 
-.tranfer-li{
-    background-color: rgb(255, 255, 255);
+.tranfer-li {
+  background-color: rgb(255, 255, 255);
 }
 
-.btn{
-    margin-left: auto;
-    border-radius: 5px;
-    height: 100%;
-    margin: 6px;
+.btn {
+  margin-left: auto;
+  border-radius: 5px;
+  height: 100%;
+  margin: 6px;
 }

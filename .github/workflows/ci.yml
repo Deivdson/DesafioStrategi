@@ -41,6 +41,10 @@ jobs:
         run: |
           cd frontend
           npm install
+      
+      - name: Prettier Check
+        run: |
+          npx prettier . --check
 
       - name: Build frontend
         run: |

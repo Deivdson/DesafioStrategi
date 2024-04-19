@@ -1,48 +1,48 @@
 {
   "env": {
-      "browser": true,
-      "es2021": true
+    "browser": true,
+    "es2021": true
   },
   "extends": [
-      "next/core-web-vitals",
-      "airbnb",
-      "plugin:react/recommended",
-      "plugin:@next/next/recommended",
-      "plugin:import/errors",
-      "prettier"
+    "next/core-web-vitals",
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:import/errors",
+    "prettier"
   ],
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true,
-          "tsx": true
-      },
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true,
+      "tsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "plugins": ["react", "prettier"],
   "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "no-unused-vars": "off",
-      "react-hooks/exhaustive-deps": "off",
-      "no-param-reassign": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "react/jsx-props-no-spreading": "off",
-      "import/extensions": "off",
-      "import/no-unresolved": "off",
-      "import/prefer-default-export": "off",
-      "prettier/prettier": ["error"],
-      "react/jsx-filename-extension": [
-          1,
-          { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-      ]
+    "react-hooks/rules-of-hooks": "error",
+    "no-unused-vars": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "no-param-reassign": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "prettier/prettier": ["error"],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ]
   },
   "settings": {
-      "import/resolver": {
-          "alias": {
-              "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
-              "map": [["@", "./src/*"]]
-          }
+    "import/resolver": {
+      "alias": {
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"],
+        "map": [["@", "./src/*"]]
       }
+    }
   }
 }
