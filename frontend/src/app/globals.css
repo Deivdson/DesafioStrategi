@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Ubuntu", sans-serif;  
+  font-family: "Ubuntu", sans-serif;
 }
 
 .modalStyle .ant-modal-header {
   border-radius: 20px 20px 0 0;
 }
-@layer base{
+@layer base {
   body {
     width: 100%;
     height: 100%;
@@ -52,10 +52,10 @@ span {
   color: var(--color-secondary-dark) !important;
 } */
 
-.Input .Password{
+.Input .Password {
   background-color: white;
 }
 
-.ant-input .css-g0ph12 .css-g0ph12{
+.ant-input .css-g0ph12 .css-g0ph12 {
   background-color: white;
 }

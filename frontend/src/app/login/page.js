@@ -1,5 +1,5 @@
-import Login from "@/components/page/login"
+import Login from "@/components/page/login";
 
 export default function Page() {
-    return <Login />;    
+  return <Login />;
 }
