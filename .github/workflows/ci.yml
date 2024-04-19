@@ -44,6 +44,7 @@ jobs:
       
       - name: Prettier Check
         run: |
+          cd frontend
           npx prettier . --check
 
       - name: Build frontend
