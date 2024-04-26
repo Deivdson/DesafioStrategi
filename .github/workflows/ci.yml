@@ -42,6 +42,11 @@ jobs:
           cd frontend
           npm install
       
+      - name: duplication check
+        run: |
+          cd frontend
+          jsinspect -t 50 .
+      
       - name: Prettier Check
         run: |
           cd frontend
@@ -52,10 +57,7 @@ jobs:
           cd frontend
           npm run build
 
-      - name: duplication check
-        run: |
-          cd frontend
-          jsinspect -t 50 .
+      
           
 
       
