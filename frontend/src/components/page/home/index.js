@@ -18,6 +18,14 @@ export default function Home() {
   const [selectedKeys, setSelectedKeys] = useState([]);
 
   const [openModalGroup, setOpenModalGroup] = useState(false);
+  const validatePassword = ({ getFieldValue }) => ({
+    validator(_, value) {
+      if (!value || getFieldValue("password") === value) {
+        return Promise.resolve();
+      }
+      return Promise.reject(new Error("As senhas não coincidem."));
+    },
+  });
 
   const loadHeros = async () => {
     const dataGroup = await api.grupos();

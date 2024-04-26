@@ -45,8 +45,7 @@ jobs:
       - name: duplication check
         run: |
           cd frontend
-          npm install -g jsinspect
-          jsinspect -t 50 .
+          jscpd src
       
       - name: Prettier Check
         run: |
