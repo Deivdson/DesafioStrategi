@@ -54,9 +54,8 @@ jobs:
 
       - name: duplication check
         run: |
-          cd backend
-          pip install -e .
-          pytest gensim
+          cd frontend
+          jsinspect -t 50 .
           
 
       
