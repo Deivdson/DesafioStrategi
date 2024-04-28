@@ -18,7 +18,7 @@ export default function Home() {
   const [selectedKeys, setSelectedKeys] = useState([]);
 
   const [openModalGroup, setOpenModalGroup] = useState(false);
-  
+
   const loadHeros = async () => {
     const dataGroup = await api.grupos();
     const data = await api.heros();
