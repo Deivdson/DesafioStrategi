@@ -35,15 +35,6 @@ export default function Register() {
     },
   });
 
-  const validatePassword2 = ({ getFieldValue }) => ({
-    validator(_, value) {
-      if (!value || getFieldValue("password") === value) {
-        return Promise.resolve();
-      }
-      return Promise.reject(new Error("As senhas não coincidem."));
-    },
-  });
-
   return (
     <div className={styles.container}>
       <h1>Registro de usuário</h1>
