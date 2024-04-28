@@ -46,7 +46,7 @@ jobs:
         run: |
           cd frontend
           npm install -g jscpd
-          jscpd src
+          jscpd -t 1 src
       
       - name: Prettier Check
         run: |
