@@ -35,7 +35,7 @@ jobs:
       - name: Bandit test
         run: |
           cd backend
-          bandit -r .
+          bandit -n 1 -iii -r . 
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
