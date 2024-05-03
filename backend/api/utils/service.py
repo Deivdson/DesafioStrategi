@@ -12,7 +12,8 @@ class SslOldHttpAdapter(requests.adapters.HTTPAdapter):
             ssl_context=ctx)
 
 def compute_md5_hash(my_string):
-    m = hashlib.md5()
+    # m= hashlib.new('md5', usedforsecurity=False)
+    m = hashlib.md5(usedforsecurity=False)
     m.update(my_string.encode('utf-8'))
     return m.hexdigest()
 
