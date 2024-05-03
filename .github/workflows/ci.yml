@@ -32,6 +32,11 @@ jobs:
           cd backend
           python -m pytest
 
+      - name: Bandit test
+        run: |
+          cd backend
+          bandit -n 1 -iii -r . -x ./api/tests
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -42,7 +47,7 @@ jobs:
           cd frontend
           npm install
       
-      - name: duplication check
+      - name: Duplication Check
         run: |
           cd frontend
           npm install -g jscpd
