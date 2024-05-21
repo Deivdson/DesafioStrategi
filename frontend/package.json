@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "antd": "^5.15.3",
-    "axios": "^1.6.4",
+    "axios": "^1.7.1",
     "babel": "^6.23.0",
     "jscpd": "^3.5.10",
     "jsinspect": "^0.12.7",
