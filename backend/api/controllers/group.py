@@ -8,7 +8,7 @@ from api.models.hero import Hero
 from api.serializers.group_serializer import group_schema, groups_schema, group_serializer
 from api.serializers.hero_serializer import hero_schema, heros_schema
 from api import db
-from api.utils.response.erros import erro_selected_heros
+from api.utils.response.erros.heros import erro_selected_heros
 from . import np_grupos
 
 app = Blueprint("grupos", __name__)
