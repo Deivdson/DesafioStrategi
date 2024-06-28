@@ -30,4 +30,4 @@ main = Blueprint('main', __name__)
 if __name__ == '__main__':
     with app.test_request_context():
         db.create_all()
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True, ssl_context=('cert.pem', 'key.pem'))
