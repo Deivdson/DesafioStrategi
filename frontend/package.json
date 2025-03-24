@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "antd": "^5.15.3",
-    "axios": "^1.6.4",
+    "axios": "^1.8.3",
     "babel": "^6.23.0",
     "jscpd": "^3.5.10",
     "jsinspect": "^0.12.7",
-    "next": "14.0.4",
+    "next": "14.2.25",
     "next-auth": "^4.24.7",
     "nookies": "^2.5.2",
     "react": "^18",
